@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <title>LMS CET </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -35,7 +35,7 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-
+        
 </head>
 
 <body>
@@ -262,14 +262,14 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
+                                            <a href="student-view.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="teacher-view.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Teachers</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -286,21 +286,21 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
+                                            <a href="view-book.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">view</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="add-new-book.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Add new</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="book-requests.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Requests</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -365,10 +365,17 @@
                                             </div>
                                             <div class="card-block table-border-style">
                                                 <div class="table-responsive">
+                                                <?php
+                                                    include "connection.php";
+                                                    $sql="select * from brequest";
+                                                    $result=mysqli_query($conn,$sql);
+                                                    if(mysqli_num_rows($result))
+                                                    {
+                                                     echo '
                                                     <table class="table table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
+                                                                <th>rid</th>
                                                                 <th>User id</th>
                                                                 <th>Username</th>
                                                                 <th>Name</th>
@@ -376,39 +383,39 @@
                                                                 <th>Book details</th>
                                                                 <th></th>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                                <td>@mdo</td>
-                                                                <td>@mdo</td>
-                                                                <td><button class="btn waves-effect waves-light btn-grd-primary ">Available</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                                <td>@mdo</td>
-                                                                <td>@mdo</td>
+                                                        </thead>';
+                                                        while($row=mysqli_fetch_assoc($result))
+                                                        {
+                                                            echo '<tbody>
+                                                            <tr id="r">
                                                                 
-                                                                <td><button class="btn waves-effect waves-light btn-grd-primary ">Available</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                                <td>@mdo</td>
-                                                                <td>@mdo</td>
-                                                                
-                                                                <td><button class="btn waves-effect waves-light btn-grd-primary ">Available</button></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                <td>'.$row["rid"].'</td>
+                                                                <td>'.$row["uid"].'</td>
+                                                                <td>'.$row["uname"].'</td>
+                                                                <td>'.$row["name"].'</td>
+                                                                <td>'.$row["department"].'</td>
+                                                                <td>'.$row["bdetails"].'</td>
+                                                                <td><button class="btn waves-effect waves-light btn-grd-primary " name="delete" >Available</button></td>
+                                                            </tr>';
+                                                        }  
+                                        
+                                                        
+                                                    }
+                                                    else
+                                                    {
+                                                    echo '<script>alert("no data");</script>';
+                                                    }
+                                                    if($_GET){
+                                                        if(isset($_GET['delete'])){
+                                                            delete();
+                                                        }
+                                                    }
+                                                    function delete()
+                                                    {
+                                                        $delete1=("delete from brequest where rid='$rid'");
+                                                        $result=mysqli_query($conn,$delete1) or die(mysqli_error());
+                                                    }
+                                                ?>
                                                 </div>
                                             </div>
                                         </div>

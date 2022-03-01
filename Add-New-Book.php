@@ -1,8 +1,28 @@
 <!DOCTYPE html>
+<?php
+    include "connection.php";
+    
+    if(isset($_POST["submit"]))
+    {
+        $bname=$_POST["bname"];
+        $author=$_POST["author"];
+        $category=$_POST["category"];
+        $sql="insert into book values('$bname','$author','$category')";
+        if(mysqli_query($conn,$sql))
+        {
+            echo '<script>alert("one record created");</script>';
+        }
+    }
+
+
+
+
+?>
+
 <html lang="en">
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <title>LMS CET </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -262,14 +282,14 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
+                                            <a href="student-view.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="teacher-view.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Teachers</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -286,21 +306,21 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
+                                            <a href="view-book.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">view</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="add-new-book.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Add new</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="book-requests.php" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Requests</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -357,35 +377,21 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Name of the Book</label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" placeholder="Type Book Name with edition">
+                                                                    <input type="text" class="form-control" name="bname" placeholder="Type Book Name with edition">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Author</label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
+                                                                    <input type="text" name="author" class="form-control"
                                                                     placeholder="Type Author Name">
                                                                 </div>
                                                             </div>
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">No. of Copies</label>
-                                                                    <div class="col-sm-10">
-                                                                        <select name="select" class="form-control">
-                                                                            <option value="opt1">1</option>
-                                                                            <option value="opt2">2</option>
-                                                                            <option value="opt3">3</option>
-                                                                            <option value="opt4">4</option>
-                                                                            <option value="opt5">5</option>
-                                                                            <option value="opt6">6</option>
-                                                                            <option value="opt7">7</option>
-                                                                            <option value="opt8">8</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                                 <div class="form-group row">
                                                                     <label class="col-sm-2 col-form-label">Category</label>
                                                                     <div class="col-sm-10">
-                                                                        <select name="select" class="form-control">
+                                                                        <select name="category" class="form-control">
                                                                             <option value="opt1">Literature</option>
                                                                             <option value="opt2">IT and computer Science</option>
                                                                             <option value="opt3">Architecture</option>
@@ -398,15 +404,10 @@
                                                                     </div>
                                                                 </div>
                                         
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-2 col-form-label">Upload Image</label>
-                                                                            <div class="col-sm-10">
-                                                                                <input type="file" class="form-control">
-                                                                            </div>
-                                                                        </div>
+                                                                    
                                                                         <div class="row m-t-30">
                                                                             <div class="col-md-12">
-                                                                                <button type="button" class="btn btn-primary btn-md btn-block  waves-effect waves-light text-center m-b-20">Add</button>
+                                                                                <input  type="submit" name="submit" class="btn btn-primary btn-md btn-block  waves-effect waves-light text-center m-b-20">
                                                                             </div>
                                                                         </div>
                                                                     </div>
