@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <?php
     include "connection.php";
-    
-    if(isset($_POST["submit"]))
-    {
-        $bname=$_POST["bname"];
-        $author=$_POST["author"];
-        $category=$_POST["category"];
-        $sql="insert into book values('$bname','$author','$category')";
-        if(mysqli_query($conn,$sql))
-        {
-            echo '<script>alert("one record created");</script>';
-        }
-    }
-
-
-
-
 ?>
+
 
 <html lang="en">
 
@@ -373,7 +358,7 @@
                                                         <h5>Add New Books</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        <form>
+                                                        <form method="post">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Name of the Book</label>
                                                                 <div class="col-sm-10">
@@ -491,3 +476,23 @@
 </body>
 
 </html>
+<?php
+    if(isset($_POST["submit"]))
+    {
+        $bname=$_POST["bname"];
+        $author=$_POST["author"];
+        $category=$_POST["category"];
+        $sql="insert into book values(null,'$bname','$author','$category','available')";
+        if(mysqli_query($conn,$sql))
+        {
+            echo '<script>alert("one record created");</script>';
+        }
+        else{
+            echo mysqli_error($conn);
+        }
+    }
+
+
+
+
+?>
